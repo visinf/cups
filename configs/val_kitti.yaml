@@ -1,0 +1,4 @@
+DATA:
+  CROP_RESOLUTION: (368, 1240)
+  VAL_SCALE: 1.0
+  DATASET: "kitti"

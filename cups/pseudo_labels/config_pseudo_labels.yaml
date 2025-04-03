@@ -1,0 +1,8 @@
+SYSTEM:
+  NUM_WORKERS: 4
+DATA:
+  CROP_RESOLUTION: (1024, 2048)
+  VAL_SCALE: 1.0
+  DATASET: "cityscapes"
+  ROOT:  "/path_to_datasets/"
+  PSEUDO_ROOT:  "/path_to_save_pseudo_labels/"

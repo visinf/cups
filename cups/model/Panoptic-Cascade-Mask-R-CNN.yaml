@@ -1,0 +1,61 @@
+_BASE_: "Base-Panoptic-FPN.yaml"
+MODEL:
+  PIXEL_MEAN: [ 0.4850, 0.4560, 0.4060 ]  # Assume images are in the rage of [0, 1]
+  PIXEL_STD: [ 0.2290, 0.2240, 0.2250 ]
+  # WEIGHTS: 'http://dl.fbaipublicfiles.com/cutler/checkpoints/dino_RN50_pretrain_d2_format.pkl'
+  WEIGHTS: 'backbone_checkpoints/dino_RN50_full_pretrain_d2_format.pkl'
+  MASK_ON: True
+  RESNETS:
+    DEPTH: 50
+    NORM: "SyncBN"
+    STRIDE_IN_1X1: False
+  BACKBONE:
+    FREEZE_AT: 0
+  SEM_SEG_HEAD:
+    NAME: CustomSemSegFPNHead
+    NUM_CLASSES: 28
+    IGNORE_VALUE: 255
+    CLASS_WEIGHT: None
+  ROI_BOX_HEAD:
+    CLS_AGNOSTIC_BBOX_REG: True
+  RPN:
+    POST_NMS_TOPK_TRAIN: 4000
+    NMS_THRESH: 0.65
+  FPN:
+    NORM: "SyncBN"
+  ROI_HEADS:
+    NAME: CustomCascadeROIHeads
+    SCORE_THRESH_TEST: 0.0
+    USE_DROPLOSS: True
+    DROPLOSS_IOU_THRESH: 0.2
+    NUM_CLASSES: 800
+
+SOLVER:
+  STEPS: (210000, 250000)
+  MAX_ITER: 270000
+  IMS_PER_BATCH: 16
+  BASE_LR: 0.01
+  WEIGHT_DECAY: 0.00005
+  GAMMA: 0.02
+  CLIP_GRADIENTS:
+    CLIP_TYPE: norm
+    CLIP_VALUE: 1.0
+    ENABLED: true
+    NORM_TYPE: 2.0
+  AMP:
+    ENABLED: True
+  CHECKPOINT_PERIOD: 10000
+
+TEST:
+  AUG:
+    FLIP: True
+    MIN_SIZES: (384, 512, 640)
+    MAX_SIZE: 4000
+  EVAL_PERIOD: 0
+  PRECISE_BN:
+    ENABLED: True
+    NUM_ITER: 200
+  DETECTIONS_PER_IMAGE: 100
+  INSTANCE_SCORE_THRESH: 0.5
+
+OUTPUT_DIR: ./test_800_cocotrianu2seg
