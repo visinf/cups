@@ -77,13 +77,11 @@ pip install git+https://github.com/zsef123/Connected_components_PyTorch.git
 
 ## Checkpoints
 
-<b>Checkpoints will be available within the next days!</b>
-
 We demonstrate that CUPS outperforms the recent state of the art (U2Seg) across multiple scene-centric benchmarks in panoptic quality.
-We provide our final checkpoint (after pseudo-label training and self-training) with 27 pseudo classes below.
-In case, you would like to use different checkpoints feel free to reach out to us or open an issue.
+We provide our final checkpoint (after pseudo-label training and self-training) with 27 pseudo-classes below.
+In case you would like to use different checkpoints, feel free to reach out to us or open an issue.
 
-**Table 1.** Comparing CUPS to the previous SOTA in unsupervised panotic segmentation using panoptic quality metric (PQ) in %.
+**Table 1.** Comparing CUPS to the previous SOTA in unsupervised panoptic segmentation using panoptic quality metric (PQ) in %.
 <table><tbody>
 <th valign="bottom">Method</th>
 <th valign="bottom">Checkpoint</th>
@@ -103,7 +101,7 @@ In case, you would like to use different checkpoints feel free to reach out to u
 <td align="center">50.7</td>
 </tr>
 <tr><td align="center"><b>CUPS</b></td>
-<td align="center"><a href="https://tudatalib.ulb.tu-darmstadt.de">download</a></td>
+<td align="center"><a href="https://tudatalib.ulb.tu-darmstadt.de/bitstream/handle/tudatalib/4532/cups.ckpt">download</a></td>
 <td align="center">27.8</td>
 <td align="center">25.5</td>
 <td align="center">19.9</td>
@@ -112,6 +110,15 @@ In case, you would like to use different checkpoints feel free to reach out to u
 <td align="center">67.8</td>
 </tr>
 </tbody></table>
+
+You can also use `wget` to download the CUPS checkpoint.
+
+```bash
+# Download checkpoint
+wget https://tudatalib.ulb.tu-darmstadt.de/bitstream/handle/tudatalib/4532/cups.ckpt
+```
+
+All related files and checkpoints can be found [here](https://tudatalib.ulb.tu-darmstadt.de/handle/tudatalib/4532).
 
 ## Inference
 
@@ -135,34 +142,57 @@ image = torchvision.io.read_image("assets/stuttgart_02_000000_005445_leftImg8bit
 prediction = model([{"image": image}])
 ```
 
-Note our implementation takes in an image with pixel values within 0 to 1. Additionally, note that our CUPS models raw
+Note our implementation takes in an image with pixel values within 0 to 1. Additionally, note that our CUPS model's raw
 output semantics are not aligned with the ground truth semantic of Cityscapes.
 
-**For a full inference example with alignment and visualization please refer to our demo script ([demo.py](demo.py)).**
+**For a full inference example with alignment and visualization, please refer to our demo script ([demo.py](demo.py)).**
 
 ## Training
 
 Training CUPS requires three stages: (1) pseudo-label generation, (2) training on the pseudo-labels, and (3)
 self-training. We will describe how to execute every step individually. We performed training on four NVIDIA A100
-(40GB) GPUS. You can train CUPS using less GPUs. Please set the respective parameters in the
+(40GB) GPUs. You can train CUPS using fewer GPUs. Please set the respective parameters in the
 [config file](cups/config.py).
 
 ### Prerequisites
 
-For training CUPS you need to download three checkpoints: (1) SMURF, (2) DepthG (w/ unsupervised depth), and (3)
+For training CUPS, you need to download three checkpoints: (1) SMURF, (2) DepthG (w/ unsupervised depth), and (3)
 ResNet-50 DINO backbone. These checkpoints are available in the TUdatalib project. You need to put the SMURF checkpoint
 into [`cups/optical_flow/checkpoints`](cups/optical_flow/checkpoints) and the ResNet-50 DINO checkpoint into
-[`cups/model/backbone_checkpoints`](cups/model/backbone_checkpoints).
+[`cups/model/backbone_checkpoints`](cups/model/backbone_checkpoints). All required checkpoints can be found [here](https://tudatalib.ulb.tu-darmstadt.de/handle/tudatalib/4532).
+You can download them manually or using wget.
+
+```bash
+# To SMURF checkpoint folder
+cd cups/optical_flow/checkpoints
+# Download SMURF checkpoint
+wget https://tudatalib.ulb.tu-darmstadt.de/bitstream/handle/tudatalib/4532/raft_smurf.pt
+# Back to repository root
+cd ../../../
+# To backbone checkpoint folder
+cd cups/model/backbone_checkpoints
+# Download ResNet-50 DINO backbone checkpoint
+wget https://tudatalib.ulb.tu-darmstadt.de/bitstream/handle/tudatalib/4532/dino_RN50_pretrain_d2_format.pkl
+```
+
+The DepthG checkpoint does not need to be in a specific folder; you need to set the path to the checkpoint manually (see pseudo-label generation).
+
+```bash
+# To checkpoint folder
+cd your_favorite_checkpoint_path
+# Download DepthG checkpoint
+wget https://tudatalib.ulb.tu-darmstadt.de/bitstream/handle/tudatalib/4532/depthg.ckpt
+```
 
 Note that the provided SMURF checkpoint is obtained from
 the [official TensorFlow checkpoint](https://github.com/google-research/google-research/blob/master/smurf/README.md) and
-converted using [this repository](https://github.com/ChristophReich1996/SMURF). The DepthG checkpoints was generated by
+converted using [this repository](https://github.com/ChristophReich1996/SMURF). The DepthG checkpoint was generated by
 executing the original [DepthG](https://github.com/leonsick/depthg) original using unsupervised depth. Following U2Seg and
 CutLER, we initialize our panoptic model using a DINO pre-trained backbone. The respective checkpoint is from the official
 [CutLER](https://github.com/facebookresearch/CutLER/tree/main) repository and is published under
 the [CC BY-NC-SA 4.0 license](https://github.com/facebookresearch/CutLER/blob/main/LICENSE).
 
-Pseudo-label training and self-training uses Weights & Biases if you want to disable logging in Weights & Biases just
+Pseudo-label training and self-training uses Weights & Biases. If you want to disable logging in Weights & Biases, just
 set the flag `--disable_wandb`.
 
 ### Pseudo-Label Generation
@@ -173,7 +203,7 @@ cups/pseudo_labels/pseudolabel_gen.sh
 ```
 Note this script requires the path to the DepthG checkpoint (`depthg.pt`).
 
-Before running the script, specify your dataset path and the output path for pseudo labels in `cups/pseudo_labels/pseudolabel_gen.sh`.
+Before running the script, specify your dataset path and the output path for pseudo labels in `cups/pseudo_labels/pseudolabel_gen.sh`. You also need to set the flag `--MODEL.CHECKPOINT` and provide the path to the DepthG checkpoint.
 
 The script splits the dataset and runs multiple processes in parallel. We used 16 processes for parallelization.
 Make sure to adjust the following parameters accordingly:
@@ -183,7 +213,7 @@ Make sure to adjust the following parameters accordingly:
 
 ### Pseudo-label Training
 
-After generating the pseudo-labels you can train a monocular panoptic segmentation networks by executing the following
+After generating the pseudo-labels, you can train a monocular panoptic segmentation network by executing the following
 script:
 
 ```bash
@@ -197,12 +227,12 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -W ignore train.py \
     DATA.THING_STUFF_THRESHOLD 0.08
 ```
 
-Add your dataset and pseudo-label path to the command. We trained using 4 GPUs, however, you can also train
-using less GPUs by changing the respective parameter. Training takes around 6 to 7 hours on 4 GPUs.
+Add your dataset and pseudo-label path to the command. We trained using 4 GPUs; however, you can also train
+using fewer GPUs by changing the respective parameters. Training takes around 6 to 7 hours on 4 GPUs.
 
 ### Self-Training
 
-After the pseudo-label training you can further enhance performance using our self-training. The self-training can be
+After the pseudo-label training, you can further enhance performance using our self-training. The self-training can be
 executed using the following command:
 
 ```bash
@@ -215,13 +245,13 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -W ignore train_self.py \
     SYSTEM.LOG_PATH "experiments"
 ```
 
-Again, add your dataset and pseudo-label path to the command and make sure to also use you desired checkpoint
+Again, add your dataset and pseudo-label path to the command and make sure to also use your desired checkpoint
 from the pseudo-label training for self-training. Checkpoints and other logs are stored in the path provided with
 `SYSTEM.LOG_PATH`. Self-training on 4 GPUs takes about 4 hours.
 
 ## Validation
 
-To run panoptic validation on Cityscapes execute the following command:
+To run panoptic validation on Cityscapes, execute the following command:
 
 ```bash
 # Run panoptic Cityscapes validation
@@ -233,10 +263,10 @@ CUDA_VISIBLE_DEVICES=0 python -W ignore val.py \
     MODEL.INFERENCE_CONFIDENCE_THRESHOLD 0.5
 ```
 
-For validation on other datasets just change the experiment config file (*e.g.*
+For validation on other datasets, just change the experiment config file (*e.g.*
 , `--experiment_config_file "configs/val_kitti.yaml"` for KITTI Panoptic). All validation configs can be
 found [here](configs). You can also change the number of semantic categories you want to evaluate on (7, 19, and 27
-categories). If you want to visualize the predictions you can add the flag `--visualize_results`.
+categories). If you want to visualize the predictions, you can add the flag `--visualize_results`.
 
 <details>
 
@@ -244,7 +274,7 @@ categories). If you want to visualize the predictions you can add the flag `--vi
 
 ### Semantic Validation
 
-To run semantic validation on Cityscapes execute the following command:
+To run semantic validation on Cityscapes, execute the following command:
 
 ```bash
 # Run semantic Cityscapes validation
@@ -264,8 +294,7 @@ following STEGO.
 
 ## Datasets
 
-Here we provide instructions on downloading and preparing the datasets for training and validation. For training CUPS
-only Cityscapes is required. Note: to download both the Cityscapes dataset, you must agree to their license terms by
+Here, we provide instructions on downloading and preparing the datasets for training and validation. For training CUPS only Cityscapes is required. Note: to download both the Cityscapes dataset, you must agree to their license terms by
 opening an account on their websites.
 
 <details>
@@ -430,13 +459,13 @@ If you want to contribute to this repository, please use [pre-commit](https://pr
 code using [mypy](https://mypy.readthedocs.io/en/stable/getting_started.html).
 
 Just install the pre-commit hooks by
-running `pre-commit install`. For running pre-commit manually on all files simply run `pre-commit run --all-files`.
+running `pre-commit install`. For running pre-commit manually on all files, simply run `pre-commit run --all-files`.
 Sometimes it is required to run `pre-commit autoupdate` to get pre-commit to work.
 
 Typing can be checked manually by using [mypy](https://mypy.readthedocs.io/en/stable/getting_started.html). For example,
-just run `mypy train.py --config-file mypy.ini --no-incremental --cache-dir=/dev/null` for type checking the training
-script and all subsequent code. For all file just replace `mypy train.py` with `mypy .`. For windows use the
-option `--cache-dir=nul` instead, to not save any mypy cache.
+just run `mypy train.py --config-file mypy.ini --no-incremental --cache-dir=/dev/null` for type-checking the training
+script and all subsequent code. For all files, just replace `mypy train.py` with `mypy .`. For Windows, use the
+option `--cache-dir=nul` instead to not save any mypy cache.
 
 ## License
 
