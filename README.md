@@ -77,7 +77,7 @@ pip install git+https://github.com/zsef123/Connected_components_PyTorch.git
 
 ## Checkpoints
 
-<b>Checkpoints will be available within the next tomorrow!</b>
+<b>Checkpoints will be available within the next days!</b>
 
 We demonstrate that CUPS outperforms the recent state of the art (U2Seg) across multiple scene-centric benchmarks in panoptic quality.
 We provide our final checkpoint (after pseudo-label training and self-training) with 27 pseudo classes below.
