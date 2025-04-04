@@ -12,7 +12,7 @@ Roth**](https://www.visinf.tu-darmstadt.de/visual_inference/people_vi/stefan_rot
 
 <sup>1</sup>TU Darmstadt  <sup>2</sup>TU Munich  <sup>3</sup>University of Oxford  <sup>4</sup>MCML  <sup>5</sup>
 ELIZA  <sup>6</sup>hessian.AI  *equal contribution
-<h3>CVPR 2025</h3>
+<h3>CVPR 2025 Highlight</h3>
 
 
 <a href="https://arxiv.org/abs/2504.01955"><img src='https://img.shields.io/badge/ArXiv-grey' alt='Paper PDF'></a>
