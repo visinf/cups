@@ -26,10 +26,11 @@ ELIZA  <sup>6</sup>hessian.AI  *equal contribution
 </center>
 </div>
 
-
 **TL;DR:** We present CUPS, a Scene-Centric Unsupervised Panoptic Segmentation method leveraging motion and depth from
 stereo pairs to generate pseudo-labels. Using these labels, we train a monocular panoptic network, achieving
 state-of-the-art results across multiple scene-centric benchmarks.
+
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/scene-centric-unsupervised-panoptic/unsupervised-panoptic-segmentation-on)](https://paperswithcode.com/sota/unsupervised-panoptic-segmentation-on?p=scene-centric-unsupervised-panoptic) 
 
 ## Abstract
 
