@@ -46,8 +46,9 @@ state of the art in unsupervised panoptic segmentation on Cityscapes by 9.4% poi
 
 ## News
 
+- `04/05/2025`: CUPS will be a **highlight** paper at [CVPR](https://cvpr.thecvf.com/Conferences/2025/AcceptedPapers)! 🎉
 - `03/04/2025`: [ArXiv](https://arxiv.org/abs/2504.01955) preprint and code released. 🚀
-- `26/02/2025`: CUPS has been accepted to [CVPR](https://cvpr.thecvf.com/Conferences/2025/AcceptedPapers)! 🎉
+- `26/02/2025`: CUPS has been **accepted** to [CVPR](https://cvpr.thecvf.com/Conferences/2025/AcceptedPapers)! 🎉
 
 ## Installation
 
