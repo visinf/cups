@@ -837,7 +837,7 @@ def _draw_instance_contours(semantic_segmentation_rgb: Tensor, instance_segmenta
     return torch.Tensor(segmentation_rgb).permute(2, 0, 1)
 
 
-def _add_ids(segmentation_rgb: Tensor, ids: Tensor, object_centers: Tensor, font_type: str = "Helvetica.ttf") -> Tensor:
+def _add_ids(segmentation_rgb: Tensor, ids: Tensor, object_centers: Tensor, font_type: str = "FreeSans.ttf") -> Tensor:
     """Adds instance IDs to RGB segmentation.
 
     Args:
