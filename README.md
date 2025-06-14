@@ -15,8 +15,11 @@ ELIZA  <sup>6</sup>hessian.AI  *equal contribution
 <h3>CVPR 2025 Highlight</h3>
 
 
-<a href="https://arxiv.org/abs/2504.01955"><img src='https://img.shields.io/badge/ArXiv-grey' alt='Paper PDF'></a>
+<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Hahn_Scene-Centric_Unsupervised_Panoptic_Segmentation_CVPR_2025_paper.pdf"><img src='https://img.shields.io/badge/Paper-grey' alt='Paper PDF'></a>
 <a href="https://visinf.github.io/cups/"><img src='https://img.shields.io/badge/Project Page-grey' alt='Project Page URL'></a>
+<a href="https://www.youtube.com/watch?v=ro_tfeUrUFo"><img src='https://img.shields.io/badge/Talk-grey' alt='Talk'></a>
+<a href="https://visinf.github.io/cups/data/cups_poster_cvpr.pdf"><img src='https://img.shields.io/badge/Poster-grey' alt='Poster'></a>
+
 <a href="https://opensource.org/licenses/Apache-2.0"><img src='https://img.shields.io/badge/License-Apache%202.0-blue.svg' alt='License'></a>
 [![Framework](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?&logo=PyTorch&logoColor=white)](https://pytorch.org/)
 
