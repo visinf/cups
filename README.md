@@ -49,6 +49,7 @@ state of the art in unsupervised panoptic segmentation on Cityscapes by 9.4% poi
 
 ## News
 
+- `21/02/2026`: [**VideoCUPS**](videocups/) — our follow-up extending CUPS to **unsupervised video panoptic segmentation** — has been **accepted** to [CVPR 2026](https://cvpr.thecvf.com/Conferences/2026)! 🎉
 - `04/05/2025`: CUPS will be a **highlight** paper at [CVPR](https://cvpr.thecvf.com/Conferences/2025/AcceptedPapers)! 🎉
 - `03/04/2025`: [ArXiv](https://arxiv.org/abs/2504.01955) preprint and code released. 🚀
 - `26/02/2025`: CUPS has been **accepted** to [CVPR](https://cvpr.thecvf.com/Conferences/2025/AcceptedPapers)! 🎉
